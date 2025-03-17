@@ -4,16 +4,17 @@ namespace App\Policies;
 
 use App\Models\Contact;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+
 
 class ContactPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, Contact $contact): bool
     {
-        return false;
+        return $contact->user_id === $user->id;
+
     }
 
     /**
@@ -21,7 +22,7 @@ class ContactPolicy
      */
     public function view(User $user, Contact $contact): bool
     {
-        return false;
+         return $contact->user_id === $user->id;
     }
 
     /**
@@ -29,7 +30,7 @@ class ContactPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +38,7 @@ class ContactPolicy
      */
     public function update(User $user, Contact $contact): bool
     {
-        return false;
+        return $contact->user_id === $user->id;
     }
 
     /**
@@ -45,7 +46,7 @@ class ContactPolicy
      */
     public function delete(User $user, Contact $contact): bool
     {
-        return false;
+        return $contact->user_id === $user->id;
     }
 
     /**
