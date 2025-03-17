@@ -59,7 +59,7 @@ export default function Home({ auth }: PageProps) {
                 </div>
             </nav>
 
-            <section className="h-[90vh]flex items-center justify-center pt-16">
+            <section className="h-[90vh] flex items-center justify-center pt-16">
                 <div className="relative">
                     <div className="max-w-7xl mx-auto px-6 py-24">
                         <div className="max-w-2xl text-center mx-auto">
@@ -95,6 +95,17 @@ export default function Home({ auth }: PageProps) {
                     </div>
                 </div>
             </section>
+
+            <footer className="bg-white border-t border-t-gray-300">
+                <div className="max-w-7xl mx-auto px6 py-12 flex items-center justify-between px-8">
+                    <div className="mt-8">
+                        <p className="text-center text-sm text-gray-500">
+                            &copy; {new Date().getFullYear()} Tous droits
+                            réservés. MonCarnet
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </>
     );
 }
