@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 import ContactList from "@/Components/ContactList";
 import ContactModal from "@/Components/ContactModal";
 
-export default function Dashboard({ contacts }: PropsDashboard) {
+export default function Dashboard({ contacts, auth }: PropsDashboard) {
     const [showModal, setShowModal] = useState(false);
     const [selectedContact, setSelectedContact] = useState<
         Contact | undefined
@@ -44,7 +44,7 @@ export default function Dashboard({ contacts }: PropsDashboard) {
                                 Mes contacts
                             </h2>
 
-                            <Button onClick={handleCreate} className="mt-4">
+                            <Button onClick={handleCreate} className="gap-2">
                                 <Plus className="w-5 h-5" />
                                 Nouveau contact
                             </Button>

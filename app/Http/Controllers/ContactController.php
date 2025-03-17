@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\StoreContactRequest;
+use App\Models\Contact;
+use App\Http\Services\ContactService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Redirect;
-use App\Models\Contact;
-use App\Services\ContactService;
-use App\Http\Requests\StoreContactRequest;
+use Illuminate\Routing\Controller as BaseController;
 
-
-class ContactController extends Controller
+class ContactController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
@@ -24,7 +24,7 @@ class ContactController extends Controller
     }
 
 
-    public function index(Request $request) 
+    public function index(Request $request)
     {
         $contacts = $this->contactService->getAllContacts();
         return Inertia::render('Dashboard', [
@@ -32,49 +32,52 @@ class ContactController extends Controller
         ]);
     }
 
-    public function create() {
+    public function create()
+    {
         return Inertia::render('Dashboard', [
             'showModal' => true,
-            'modalType'=> 'create'
+            'modalType' => 'create'
         ]);
-    } 
+    }
 
-    public function store(StoreContactRequest $request) 
+    public function store(StoreContactRequest $request)
     {
         $validated = $request->validated();
         $this->contactService->createContact($validated);
-        return Redirect::route('Dashboard')->with('success', 'Contact created successfully');
+        return Redirect::route('dashboard')->with('message', 'Contact créé avec succès.');
     }
 
-    public function show(Contact $contact) {
+
+    public function show(Contact $contact)
+    {
         $this->authorize('view', $contact);
         return Inertia::render('SingleContact', [
             'contact' => $contact
         ]);
     }
 
-    public function edit(Contact $contact) {
+    public function edit(Contact $contact)
+    {
         $this->authorize('update', $contact);
         return Inertia::render('Dashboard', [
-            "showModal" => true,
-            "modalType" => 'edit',
-            'contact' => $contact
+            'contact' => $contact,
+            'showModal' => true,
+            'modalType' => 'edit'
         ]);
     }
 
     public function update(StoreContactRequest $request, Contact $contact)
-    {
-        $this->authorize('update', $contact);
-        $validated = $request->validated();
-        $this->contactService->updateContact($contact, $validated);
-        return Redirect::route('Dashboard')->with('success', 'Contact updated successfully');
-    }
+        {
+            $this->authorize('update', $contact);
+            $validated = $request->validated();
+            $this->contactService->updateContact($contact, $validated);
+            return Redirect::route('dashboard')->with('message', 'Contact modifié avec succès.');
+        }
 
     public function destroy(Contact $contact)
     {
         $this->authorize('delete', $contact);
         $this->contactService->deleteContact($contact);
-        return Redirect::route('Dashboard')->with('success', 'Contact deleted successfully');
+        return Redirect::route('dashboard')->with('message', 'Contact supprimé avec succès.');
     }
-
 }

@@ -4,7 +4,7 @@ export const schemaModal = yup
     .object({
         first_name: yup.string().required("Le prénom est requis"),
         last_name: yup.string().required("Le nom est requis"),
-        email: yup.string().email("Adresse email invalide").nullable(),
+        email: yup.string().email("Le courriel doit être valide").nullable(),
         phone: yup.string().nullable(),
         address: yup.string().nullable(),
         city: yup.string().nullable(),
