@@ -1,3 +1,9 @@
+import { Head } from "@inertiajs/react";
+
 export default function Home() {
-    return <div>Home</div>;
+    return (
+        <>
+            <Head title="Accueil" />
+        </>
+    );
 }
