@@ -4,6 +4,8 @@ import { Contact, PropsDashboard } from "@/types";
 import { useState } from "react";
 import { Button } from "@/Components/ui/button";
 import { Plus } from "lucide-react";
+import ContactList from "@/Components/ContactList";
+import ContactModal from "@/Components/ContactModal";
 
 export default function Dashboard({ contacts }: PropsDashboard) {
     const [showModal, setShowModal] = useState(false);
@@ -47,6 +49,14 @@ export default function Dashboard({ contacts }: PropsDashboard) {
                                 Nouveau contact
                             </Button>
                         </div>
+
+                        <ContactList contacts={contacts} onEdit={handleEdit} />
+                        <ContactModal
+                            showModal={showModal}
+                            modalType={modalType}
+                            contact={selectedContact}
+                            onClose={() => setShowModal(false)}
+                        />
                     </div>
                 </div>
             </div>
