@@ -1,6 +1,6 @@
 import { ContactFormData, schemaModal } from "@/Schemas/Index";
 import { PropsModal } from "@/types";
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import { useEffect } from "react";
 import * as yup from "yup";
 export default function ContactModal({
@@ -38,7 +38,7 @@ export default function ContactModal({
         }
     }, [contact, modalType, showModal]);
 
-    const validateFrom = async (): Promise<boolean> => {
+    const validateForm = async (): Promise<boolean> => {
         try {
             await schemaModal.validate(data, { abortEarly: false });
             return true;
@@ -54,6 +54,40 @@ export default function ContactModal({
             }
             return false;
         }
+    };
+
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const isValid = await validateForm();
+        if (!isValid) return;
+
+        if (modalType === "create") {
+            post(route("contacts.store"), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    handleClose();
+                    router.reload();
+                },
+            });
+        } else {
+            put(route("contacts.update", contact?.id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    handleClose();
+                    router.reload();
+                },
+                onError: (errors) => {
+                    console.error(errors);
+                },
+            });
+        }
+    };
+
+    const handleClose = () => {
+        if (modalType === "create") {
+            reset();
+        }
+        onClose();
     };
 
     return <div>ContactModal</div>;
