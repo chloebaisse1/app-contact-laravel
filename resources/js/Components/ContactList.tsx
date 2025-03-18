@@ -7,17 +7,17 @@ import {
     TableHeader,
     TableRow,
 } from "@/Components/ui/table";
-import { Contact } from "@/types";
+import { Contact, PropsList } from "@/types";
 import { Link, router } from "@inertiajs/react";
 import { Edit, Eye, Trash2 } from "lucide-react";
-import { PropsList } from "@/types";
 
 export default function ContactList({ contacts, onEdit }: PropsList) {
     const handleDelete = (contact: Contact) => {
-        if (confirm("Etes-vous sur de vouloir supprimer ?")) {
-            router.delete(route("contact.destroy", contact.id));
+        if (confirm("Êtes-vous sûr de vouloir supprimer ce contact ?")) {
+            router.delete(route("contacts.destroy", contact.id));
         }
     };
+
     return (
         <div className="rounded-md border">
             <Table>
@@ -48,7 +48,7 @@ export default function ContactList({ contacts, onEdit }: PropsList) {
                                                 contact.id
                                             )}
                                         >
-                                            <Eye className="w-4 h-4" />
+                                            <Eye className="h-4 w-4" />
                                         </Link>
                                     </Button>
                                     <Button
@@ -56,14 +56,14 @@ export default function ContactList({ contacts, onEdit }: PropsList) {
                                         size="icon"
                                         onClick={() => onEdit(contact)}
                                     >
-                                        <Edit className="w-4 h-4" />
+                                        <Edit className="h-4 w-4" />
                                     </Button>
                                     <Button
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => handleDelete(contact)}
                                     >
-                                        <Trash2 className="w-4 h-4" />
+                                        <Trash2 className="h-4 w-4 text-red-500" />
                                     </Button>
                                 </div>
                             </TableCell>

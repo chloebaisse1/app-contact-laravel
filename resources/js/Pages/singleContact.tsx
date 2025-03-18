@@ -6,9 +6,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
+import { PropsSinglePage } from "@/types";
 import { Head, Link } from "@inertiajs/react";
 import { ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
-import { PropsSinglePage } from "@/types";
 
 export default function SingleContact({ contact }: PropsSinglePage) {
     return (
