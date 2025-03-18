@@ -8,10 +8,10 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Textarea } from "@/Components/ui/textarea";
+import { ContactFormData, schemaModal } from "@/Schemas/Index";
+import { PropsModal } from "@/types";
 import { router, useForm } from "@inertiajs/react";
 import React, { useEffect } from "react";
-import { schemaModal, ContactFormData } from "@/Schemas/Index";
-import { PropsModal } from "@/types";
 import * as yup from "yup";
 
 export default function ContactModal({
